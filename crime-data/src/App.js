@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import Header from "./components/Header";
-import PostcodeInput from "./components/PostcodeInput";
-import DataVis from "./components/DataVis";
+import React, { Component } from 'react';
+import Header from './components/Header';
+import PostcodeInput from './components/PostcodeInput';
+import DataVis from './components/DataVis';
 
 class App extends Component {
   state = {
-    streetLevelCrimes: ""
+    streetLevelCrimes: ''
   };
 
   render() {
@@ -28,7 +28,15 @@ class App extends Component {
     )
       .then(res => res.json())
       .then(data => {
-        const crimeData = data.map(crime => crime.category);
+        const crimeData = data.reduce((acc, curr) => {
+          if (acc[curr.category]) {
+            acc[curr.category]++;
+            return acc;
+          } else {
+            acc[curr.category] = 1;
+            return acc;
+          }
+        }, {});
         this.setState({ streetLevelCrimes: crimeData });
       });
   };
