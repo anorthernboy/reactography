@@ -1,29 +1,57 @@
-import React from "react";
-import { googleAPI } from "../config/config";
+import React from 'react';
+import { googleAPI } from '../config/config';
 
 class PostcodeInput extends React.Component {
   state = {
-    currentPostcode: "",
-    newPostcode: ""
+    currentPostcode: '',
+    newPostcode: ''
   };
   render() {
     return (
-      <div>
+      <div style={{ 'text-align': 'center' }}>
         <form onSubmit={this.handleSubmit}>
           <input
+            style={{
+              width: '200px',
+              height: '40px',
+              'text-align': 'center',
+              'font-size': '14px',
+              margin: '5px',
+              'background-color': 'lightgreen'
+            }}
             onChange={this.handleCurrentPostcodeChange}
             value={this.state.currentPostcode}
             type="text"
             placeholder="Enter your current postcode..."
           />
           <input
+            style={{
+              width: '200px',
+              height: '40px',
+              'text-align': 'center',
+              'font-size': '14px',
+              margin: '5px',
+              'background-color': 'lightgreen'
+            }}
             onChange={this.handleNewPostcodeChange}
             value={this.state.newPostcode}
             type="text"
             placeholder="Enter your new postcode..."
           />
           <br />
-          <button>Submit</button>
+          <button
+            style={{
+              width: '420px',
+              height: '40px',
+              'text-align': 'center',
+              'font-size': '20px',
+              margin: '5px',
+              'background-color': 'green',
+              color: 'white'
+            }}
+          >
+            Call The Police
+          </button>
         </form>
       </div>
     );

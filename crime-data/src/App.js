@@ -1,20 +1,27 @@
-import React, { Component } from "react";
-import Header from "./components/Header";
-import PostcodeInput from "./components/PostcodeInput";
-import DataVis from "./components/DataVis";
+import React, { Component } from 'react';
+import Header from './components/Header';
+import PostcodeInput from './components/PostcodeInput';
+import DataVis from './components/DataVis';
 
 class App extends Component {
   state = {
-    currentStreetLevelCrimes: "",
-    newStreetLevelCrimes: "",
-    currentAddress: "",
-    newAddress: ""
+    currentStreetLevelCrimes: '',
+    newStreetLevelCrimes: '',
+    currentAddress: '',
+    newAddress: ''
   };
 
   render() {
     console.log(this.state.streetLevelCrimes);
     return (
-      <div className="App">
+      <div
+        className="App"
+        // style={{
+        //   'background-image':
+        //     'url("https://i.dailymail.co.uk/i/pix/2012/05/17/article-0-0665FFBC000005DC-419_468x286.jpg")',
+        //   'background-size': 'cover'
+        // }}
+      >
         <Header />
         <PostcodeInput
           currentCrimeLocationSearch={this.currentCrimeLocationSearch}
