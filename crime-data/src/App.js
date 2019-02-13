@@ -1,18 +1,20 @@
-import React, { Component } from 'react';
-import Header from './components/Header';
-import PostcodeInput from './components/PostcodeInput';
-import DataVis from './components/DataVis';
+import React, { Component } from "react";
+import Header from "./components/Header";
+import PostcodeInput from "./components/PostcodeInput";
+import DataVis from "./components/DataVis";
+import CompareDataVis from "./components/CompareDataVis";
 
 class App extends Component {
   state = {
-    currentStreetLevelCrimes: '',
-    newStreetLevelCrimes: '',
-    currentAddress: '',
-    newAddress: ''
+    currentStreetLevelCrimes: "",
+    newStreetLevelCrimes: "",
+    currentAddress: "",
+    newAddress: "",
+    compareCrime: "",
+    crimeCategory: ""
   };
 
   render() {
-    console.log(this.state.streetLevelCrimes);
     return (
       <div
         className="App"
@@ -32,10 +34,16 @@ class App extends Component {
         <DataVis
           crime={this.state.currentStreetLevelCrimes}
           address={this.state.currentAddress}
+          compareCrime={this.compareCrime}
         />
         <DataVis
           crime={this.state.newStreetLevelCrimes}
           address={this.state.newAddress}
+          compareCrime={this.compareCrime}
+        />
+        <CompareDataVis
+          compare={this.state.compareCrime}
+          crime={this.state.crimeCategory}
         />
       </div>
     );
@@ -89,6 +97,14 @@ class App extends Component {
 
   newAddress = address => {
     this.setState({ newAddress: address });
+  };
+
+  compareCrime = crimeCategory => {
+    const compareCrime = {
+      current: this.state.currentStreetLevelCrimes[crimeCategory],
+      new: this.state.newStreetLevelCrimes[crimeCategory]
+    };
+    this.setState({ compareCrime, crimeCategory });
   };
 }
 
