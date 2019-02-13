@@ -1,11 +1,14 @@
-import React, { Component } from 'react';
-import Header from './components/Header';
-import PostcodeInput from './components/PostcodeInput';
-import DataVis from './components/DataVis';
+import React, { Component } from "react";
+import Header from "./components/Header";
+import PostcodeInput from "./components/PostcodeInput";
+import DataVis from "./components/DataVis";
 
 class App extends Component {
   state = {
-    streetLevelCrimes: ''
+    currentStreetLevelCrimes: "",
+    newStreetLevelCrimes: "",
+    currentAddress: "",
+    newAddress: ""
   };
 
   render() {
@@ -13,18 +16,29 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
-        <PostcodeInput crimeLocationSearch={this.crimeLocationSearch} />
-        <DataVis crime={this.state.streetLevelCrimes} />
+        <PostcodeInput
+          currentCrimeLocationSearch={this.currentCrimeLocationSearch}
+          newCrimeLocationSearch={this.newCrimeLocationSearch}
+          currentAddress={this.currentAddress}
+          newAddress={this.newAddress}
+        />
+        <DataVis
+          crime={this.state.currentStreetLevelCrimes}
+          address={this.state.currentAddress}
+        />
+        <DataVis
+          crime={this.state.newStreetLevelCrimes}
+          address={this.state.newAddress}
+        />
       </div>
     );
   }
 
-  crimeLocationSearch = (latLngObj, dateStr) => {
-    const date = dateStr.slice(0, 7);
+  currentCrimeLocationSearch = (latLngObj, address) => {
     const lat = latLngObj.lat;
     const lng = latLngObj.lng;
     fetch(
-      `https://data.police.uk/api/crimes-street/all-crime?lat=${lat}&lng=${lng}&date=${date}`
+      `https://data.police.uk/api/crimes-street/all-crime?lat=${lat}&lng=${lng}`
     )
       .then(res => res.json())
       .then(data => {
@@ -37,8 +51,37 @@ class App extends Component {
             return acc;
           }
         }, {});
-        this.setState({ streetLevelCrimes: crimeData });
+        this.setState({ currentStreetLevelCrimes: crimeData });
       });
+  };
+
+  newCrimeLocationSearch = (latLngObj, address) => {
+    const lat = latLngObj.lat;
+    const lng = latLngObj.lng;
+    fetch(
+      `https://data.police.uk/api/crimes-street/all-crime?lat=${lat}&lng=${lng}`
+    )
+      .then(res => res.json())
+      .then(data => {
+        const crimeData = data.reduce((acc, curr) => {
+          if (acc[curr.category]) {
+            acc[curr.category]++;
+            return acc;
+          } else {
+            acc[curr.category] = 1;
+            return acc;
+          }
+        }, {});
+        this.setState({ newStreetLevelCrimes: crimeData });
+      });
+  };
+
+  currentAddress = address => {
+    this.setState({ currentAddress: address });
+  };
+
+  newAddress = address => {
+    this.setState({ newAddress: address });
   };
 }
 

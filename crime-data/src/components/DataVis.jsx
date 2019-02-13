@@ -1,7 +1,7 @@
-import React from 'react';
-import { Doughnut } from 'react-chartjs-2';
+import React from "react";
+import { Doughnut } from "react-chartjs-2";
 
-const DataVis = ({ crime }) => {
+const DataVis = ({ crime, address }) => {
   console.log(crime);
   const data = {
     labels: [...Object.keys(crime)],
@@ -10,20 +10,20 @@ const DataVis = ({ crime }) => {
       {
         data: [...Object.values(crime)],
         backgroundColor: [
-          'IndianRed',
-          'LightCoral',
-          'Salmon',
-          'DarkSalmon',
-          'LightSalmon',
-          'Crimson',
-          'LightPink',
-          'DeepPink',
-          'DarkOrange',
-          'Gold',
-          'DarkKhaki',
-          'BlueViolet',
-          'Indigo',
-          'SlateBlue'
+          "IndianRed",
+          "LightCoral",
+          "Salmon",
+          "DarkSalmon",
+          "LightSalmon",
+          "Crimson",
+          "LightPink",
+          "DeepPink",
+          "DarkOrange",
+          "Gold",
+          "DarkKhaki",
+          "BlueViolet",
+          "Indigo",
+          "SlateBlue"
         ]
       }
     ]
@@ -31,6 +31,7 @@ const DataVis = ({ crime }) => {
   console.log(data);
   return (
     <div>
+      <h1>{address}</h1>
       <Doughnut data={data} />
     </div>
   );
